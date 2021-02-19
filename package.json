@@ -13,7 +13,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon server.js --ignore sessions"
+    "dev": "npx nodemon server.js --ignore sessions",
+    "start": "npx nodemon server.js --ignore sessions"
   },
   "keywords": [],
   "author": "",
