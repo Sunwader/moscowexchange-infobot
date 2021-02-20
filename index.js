@@ -6,7 +6,7 @@ const { TOKEN } = process.env;
 const bot = new Telegraf(TOKEN);
 
 bot.start( ( ctx ) => {
-    return ctx.reply(`Привет, ${ctx.from.first_name}! Напиши мне тикер любой акции Московской биржи, а я выдам тебе ее текущую стоимость`);
+    return ctx.reply(`Привет, ${ctx.from.first_name}! Напиши мне название или тикер любой акции Московской биржи, а я выдам тебе информацию по ней`);
 } );
 
 bot.on( 'text', ( ctx ) => {

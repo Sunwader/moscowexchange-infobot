@@ -24,8 +24,8 @@ const getValuesData = async ( apiClient, range ) => {
 
 const findRowIndex = ( sheet, message ) => {
     const rowIndex = sheet.data[0].rowData.findIndex( ( item ) => (
-        item.values[0].formattedValue === message
-    ) );
+        item.values[1].formattedValue === message || item.values[0].formattedValue === message
+    ));
 
     return rowIndex;
 };
@@ -37,11 +37,30 @@ const answersFromBot = async (ctx ) => {
     const apiClient = await getApiClient();
     const [sheet] = await getValuesData( apiClient, range );
     const rowIndex = findRowIndex( sheet, message );
-    const price = sheet.data[0].rowData[rowIndex].values[1].formattedValue;
 
-    ctx.reply(`Текущая цена акции ${message}:  ${price} ₽`);
+    const ticker = sheet.data[0].rowData[rowIndex].values[0].formattedValue;
+    const companyName = sheet.data[0].rowData[rowIndex].values[1].formattedValue;
+    const price = sheet.data[0].rowData[rowIndex].values[2].formattedValue;
+    const lot = sheet.data[0].rowData[rowIndex].values[3].formattedValue;
+    const listing = sheet.data[0].rowData[rowIndex].values[4].formattedValue;
+    const nominal = sheet.data[0].rowData[rowIndex].values[5].formattedValue;
+    const code = sheet.data[0].rowData[rowIndex].values[6].formattedValue;
 
-    // console.log( sheet.data[0].rowData[rowIndex].values[1]);
+ctx.reply(`
+Компания:  ${companyName}
+Тикер:  ${ticker}
+Текущая цена:  ${price} ₽
+Лот:  ${lot}
+Уровень листинга:  ${listing}
+Номинальная стоимость одной ценной бумаги:  ${nominal} ₽
+Международный код ценной бумаги:  ${code}
+`);
+
+
+    // console.log( sheet );
+    // console.log(sheet.data[0].rowData)
+    // console.log(sheet.data[0].rowData[3])
+    // console.log( sheet.data[0].rowData[rowIndex].values[3]);
 };
 
 module.exports = {
